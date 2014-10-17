@@ -1,0 +1,36 @@
+<div class="dropdown">
+    <button class="btn btn-default" type="button" id="tutte" ng-click="ctrl.setFilterCateg({categ:'',subCateg:''})">Tutto</button>
+    <button class="btn btn-default dropdown-toggle" type="button" id="menuPrimi" data-toggle="dropdown">
+        Primi
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menuPrimi">
+        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="ctrl.setFilterCateg({categ:'Primi',subCateg:'Pasta'})">Pasta</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="ctrl.setFilterCateg({categ:'Primi',subCateg:'Risotti'})">Risotti</a></li>
+        <li class="divider"></li>
+        <li><a ng-click="ctrl.setFilterCateg({categ:'Primi',subCateg:''})">Tutti</a></li>
+    </ul>
+</div>
+
+<input type="text" placeholder="Cerca" ng-model="recipeName" style="margin-top: 10px"/>
+
+<span class="label label-default" ng-show="ctrl.filterCateg.categ !== ''" ng-click="ctrl.setFilterCateg({categ:ctrl.filterCateg.categ,subCateg:''})">{{ctrl.filterCateg.categ}}</span>
+<span ng-show="ctrl.filterCateg.subCateg !== ''"> -> </span>
+<span class="label label-default" ng-show="ctrl.filterCateg.subCateg !== ''">{{ctrl.filterCateg.subCateg}}</span>
+
+
+<hr/>
+
+<div class="row">
+    <div ng-repeat="r in ctrl.recipes | categ:ctrl.filterCateg | filter:recipeName">
+        <div class="col-sm-6 col-md-2">
+            <div class="thumbnail">
+                <img ng-src="{{r.img}}" alt="{{r.name}}">
+                <div class="caption">
+                    <h3>{{r.name}}</h3>
+                    <p>{{r.desc}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
